@@ -1,31 +1,55 @@
-name: Automatisation des testss
-on: push
-jobs:
-  Compilation:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Compilation
-        run: |
-          last_directory=$(basename ${{ runner.workspace }})
-          git clone https://github.com/${{ github.repository }}.git
-          cd ./$last_directory
-          mkdir build
-          cd build
-          cmake ..
-          make
-          make test
+stages:
+  - build
+  - test
+  - deploy
 
-  Test_Add:
-    runs-on: ubuntu-latest
-    needs: Compilation
-    steps:
-      - name: Test fonction add
-        run: |
-          last_directory=$(basename ${{ runner.workspace }})
-          git clone https://github.com/${{ github.repository }}.git
-          cd ./$last_directory
-          mkdir build
-          cd build
-          cmake ..
-          make
-          ./src/calculator add 10 5
+Compilation:
+  stage: build
+  script:
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make
+  artifacts:
+    paths:
+      - build/
+
+Test_Add:
+  stage: test
+  dependencies:
+    - Compilation
+  script:
+    - ./build/src/calculator add 2 3
+
+Test_sub:
+  stage: test
+  dependencies:
+    - Compilation
+  script:
+    - ./build/src/calculator sub 3 -2
+
+Test_mul:
+  stage: test
+  dependencies:
+    - Compilation
+  script:
+    - ./build/src/calculator mul 5 5
+
+Test_div:
+  stage: test
+  dependencies:
+    - Compilation
+  script:
+    - ./build/src/calculator div 1 5
+
+Test_car:
+  stage: test
+  dependencies:
+    - Compilation
+  script:
+    - ./build/src/calculator car 5
+
+Deployment:
+  stage: deploy
+  script:
+    - echo "Déploiement de la solution"
