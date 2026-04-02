@@ -1,4 +1,4 @@
-name: Automatisation des tests
+name: Automatisation des testss
 on: push
 jobs:
   Compilation:
