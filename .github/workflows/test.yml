@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build
         run: |
@@ -16,7 +16,7 @@ jobs:
           make
 
       - name: Save build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: build/
@@ -25,10 +25,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: Compilation
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: build
+          path: build
 
       - run: ./build/src/calculator add 10 5
 
@@ -36,10 +37,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: Compilation
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: build
+          path: build
 
       - run: ./build/src/calculator sub 10 5
 
@@ -47,10 +49,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: Compilation
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: build
+          path: build
 
       - run: ./build/src/calculator mul 5 5
 
@@ -58,10 +61,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: Compilation
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: build
+          path: build
 
       - run: ./build/src/calculator div 10 2
 
@@ -69,10 +73,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: Compilation
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: build
+          path: build
 
       - run: ./build/src/calculator car 5
 
